@@ -6,6 +6,20 @@ interface Props {
   description?: string;
 }
 
+const contactApiUrl =
+  import.meta.env.PUBLIC_CONTACT_API_URL || 'https://contact-api.oliverjueguen.workers.dev';
+const contactApiOrigin = new URL(contactApiUrl).origin;
+const csp = [
+  "default-src 'self'",
+  "script-src 'self' 'unsafe-inline'",
+  "style-src 'self' 'unsafe-inline'",
+  "img-src 'self' data: https:",
+  "font-src 'self' data:",
+  `connect-src 'self' ${contactApiOrigin}`,
+  "base-uri 'self'",
+  "form-action 'self'",
+].join('; ');
+
 const {
   title = 'Oliver Jueguen | Ciberseguridad para pymes en A Coruña',
   description = 'Auditorías de ciberseguridad y consultoría especializada para pymes en A Coruña y Galicia. Protege tu negocio frente a amenazas digitales.',
@@ -18,10 +32,7 @@ const {
     <meta charset="UTF-8" />
     <meta name="description" content={description} />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta
-      http-equiv="Content-Security-Policy"
-      content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self'; base-uri 'self'; form-action 'self' https://api.web3forms.com;"
-    />
+    <meta http-equiv="Content-Security-Policy" content={csp} />
     <meta name="referrer" content="strict-origin-when-cross-origin" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <title>{title}</title>

@@ -1,0 +1,11 @@
+name = "contact-api"
+main = "src/index.js"
+compatibility_date = "2026-04-15"
+
+[[kv_namespaces]]
+binding = "CONTACT_RATE_LIMIT"
+id = "REPLACE_WITH_PRODUCTION_KV_NAMESPACE_ID"
+
+[vars]
+ALLOWED_ORIGINS = "https://oliverjueguen.net,https://www.oliverjueguen.net"
+COOLDOWN_SECONDS = "120"
