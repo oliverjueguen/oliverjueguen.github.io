@@ -1,7 +1,8 @@
 ---
 import Layout from '../layouts/Layout.astro';
 
-const formAction = 'https://formsubmit.co/contacto@oliverjueguen.net';
+const formAction = 'https://api.web3forms.com/submit';
+const accessKey = '8a7cc2f3-8d78-4760-81a5-a4fe9c6e6772';
 const enviado = Astro.url.searchParams.get('enviado') === '1';
 const cooldownSeconds = 120;
 ---
@@ -53,10 +54,11 @@ const cooldownSeconds = 120;
               class="mb-6 hidden rounded-2xl border border-amber-400/30 bg-amber-400/10 px-4 py-4 text-sm leading-7 text-amber-100"
             ></div>
             <form action={formAction} method="POST" class="grid gap-5" data-contact-form data-cooldown={cooldownSeconds}>
-              <input type="hidden" name="_subject" value="Nuevo contacto desde oliverjueguen.net" />
-              <input type="hidden" name="_template" value="table" />
-              <input type="hidden" name="_next" value="https://oliverjueguen.net/contacto?enviado=1" />
-              <input type="text" name="_honey" class="hidden" tabindex="-1" autocomplete="off" />
+              <input type="hidden" name="access_key" value={accessKey} />
+              <input type="hidden" name="subject" value="Nuevo contacto desde oliverjueguen.net" />
+              <input type="hidden" name="from_name" value="oliverjueguen.net" />
+              <input type="hidden" name="redirect" value="https://oliverjueguen.net/contacto?enviado=1" />
+              <input type="checkbox" name="botcheck" class="hidden" tabindex="-1" autocomplete="off" />
 
               <div class="grid gap-2">
                 <label for="nombre" class="text-sm font-medium text-neutral-200">Nombre</label>
@@ -116,9 +118,9 @@ const cooldownSeconds = 120;
                   name="servicio"
                   class="rounded-2xl border border-white/10 bg-black/30 px-4 py-4 text-white outline-none transition focus:border-[#f79a2d]"
                 >
-                  <option>Auditoría web básica</option>
-                  <option>Auditoría de seguridad avanzada</option>
-                  <option>Auditoría premium all in</option>
+                  <option>Reconocimiento pasivo</option>
+                  <option>Validación activa</option>
+                  <option>Simulación ofensiva ampliada</option>
                   <option>Quiero que me asesores</option>
                 </select>
               </div>
