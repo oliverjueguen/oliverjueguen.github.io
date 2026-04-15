@@ -95,6 +95,10 @@ export default {
           origin,
         );
       }
+
+      await env.CONTACT_RATE_LIMIT.put(rateLimitKey, 'pending', {
+        expirationTtl: 30,
+      });
     }
 
     const upstream = new FormData();
@@ -129,6 +133,10 @@ export default {
     const upstreamBody = await upstreamResponse.json().catch(() => ({}));
 
     if (!upstreamResponse.ok || !upstreamBody.success) {
+      if (env.CONTACT_RATE_LIMIT && rateLimitKey) {
+        await env.CONTACT_RATE_LIMIT.delete(rateLimitKey);
+      }
+
       return withCors(
         json(
           {
