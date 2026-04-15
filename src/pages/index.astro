@@ -1,0 +1,315 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const navItems = [
+  { label: 'Servicios', href: '#servicios' },
+  { label: 'Portfolio', href: '#portfolio' },
+  { label: 'Contacto', href: '/contacto' },
+];
+
+const services = [
+  {
+    number: '01',
+    title: 'Reconocimiento pasivo',
+    tag: 'Entrada',
+    description:
+      'Una revisión inicial orientada a identificar exposición pública sin realizar pruebas agresivas. Sirve para detectar información visible, tecnologías expuestas y puntos débiles aparentes antes de pasar a una fase más activa.',
+    items: [
+      'Enumeración de dominios, subdominios y servicios visibles',
+      'Identificación de tecnologías, versiones y componentes expuestos',
+      'Búsqueda de configuraciones débiles e información pública relevante',
+      'Informe inicial con vectores de ataque potenciales y prioridades',
+    ],
+  },
+  {
+    number: '02',
+    title: 'Validación activa',
+    tag: 'Recomendada',
+    description:
+      'Pensada para validar de forma controlada si los vectores detectados pueden convertirse en un acceso real. Aquí ya entran pruebas más activas sobre autenticación, paneles, formularios y otros puntos expuestos previamente autorizados.',
+    items: [
+      'Todo lo incluido en el reconocimiento pasivo',
+      'Pruebas activas sobre paneles, formularios y accesos expuestos',
+      'Validación controlada de vectores como autenticación débil o fuerza bruta autorizada',
+      'Informe con hallazgos confirmados, impacto y recomendaciones',
+    ],
+  },
+  {
+    number: '03',
+    title: 'Simulación ofensiva ampliada',
+    tag: 'Premium',
+    description:
+      'La opción más completa, pensada para organizaciones que quieren simular escenarios de ataque más realistas dentro de un alcance definido. Puede incluir técnicas adicionales de validación y ejercicios autorizados como simulaciones de phishing.',
+    items: [
+      'Todo lo incluido en la validación activa',
+      'Mayor profundidad en la revisión manual y en la cadena de ataque',
+      'Simulaciones autorizadas de ingeniería social o phishing, si aplica',
+      'Informe detallado con prioridades, impacto y sesión final de revisión',
+    ],
+  },
+];
+
+const projects = [
+  {
+    name: 'CVE publicado en OPNsense',
+    scope: 'INVESTIGACIÓN / CVE / OPNsense',
+    summary:
+      'Descubrimiento de un CSRF en varios endpoints API que permitían ejecutar acciones privilegiadas vía GET sin validación, afectando el estado del firewall de un administrador autenticado.',
+    href: 'https://www.cve.org/CVERecord?id=CVE-2026-30868',
+    cta: 'Ver publicación',
+  },
+  {
+    name: 'eJPTv2 y formación especializada',
+    scope: 'PENTESTING / MÁSTER / FORMACIÓN',
+    summary:
+      'Base sólida en metodologías de pentesting, enumeración, explotación y análisis técnico, reforzada con el Máster de Ciberseguridad & IA en Evolve Academy, de la mano de Carlos Gómez Pintado.',
+    href: '/contacto',
+    cta: 'Hablar conmigo',
+  },
+  {
+    name: 'Auditorías web para pymes',
+    scope: 'WEB / REVISIÓN TÉCNICA / NEGOCIO',
+    summary:
+      'Combino análisis técnico con recomendaciones claras y priorizadas para negocio, de forma que cada hallazgo se traduzca en decisiones útiles y mejoras asumibles.',
+    href: '#servicios',
+    cta: 'Ver servicios',
+  },
+];
+
+const process = [
+  'Contexto del negocio y de la infraestructura.',
+  'Revisión técnica con foco en riesgos reales.',
+  'Entrega de hallazgos con prioridad e impacto.',
+  'Siguiente paso claro para corregir y mejorar.',
+];
+---
+
+<Layout
+  title="Oliver Jueguen | Auditorías de ciberseguridad para pymes en A Coruña"
+  description="Portfolio y servicios de Oliver Jueguen. Auditorías de ciberseguridad para pymes en A Coruña con una web de estilo editorial, clara y orientada a conversión."
+>
+  <main id="top" class="bg-[#0a0a0a] text-[#f5f1e8]">
+    <section class="relative overflow-hidden border-b border-white/10 bg-[radial-gradient(circle_at_top_left,_rgba(247,148,29,0.12),_transparent_28%),radial-gradient(circle_at_80%_20%,_rgba(203,213,225,0.10),_transparent_22%),linear-gradient(180deg,_#0a0a0a_0%,_#111111_100%)]">
+      <div class="absolute inset-x-0 top-24 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent"></div>
+      <div class="mx-auto max-w-7xl px-6 pb-16 pt-6 md:px-10 md:pb-20">
+        <header class="flex flex-col gap-6 border-b border-white/10 pb-6 md:flex-row md:items-center md:justify-between">
+          <a href="#top" class="text-sm font-semibold uppercase tracking-[0.28em] text-white">
+            oliverjueguen.net
+          </a>
+          <nav class="flex flex-wrap items-center gap-2 text-sm uppercase tracking-[0.18em] text-neutral-300">
+            {navItems.map((item) => (
+              <a href={item.href} class="rounded-full px-4 py-2 transition hover:bg-white/10 hover:text-white">
+                {item.label}
+              </a>
+            ))}
+          </nav>
+          <a
+            href="/contacto"
+            class="inline-flex items-center justify-center rounded-full border border-[#f5f1e8] px-5 py-3 text-sm font-semibold uppercase tracking-[0.18em] text-white transition hover:bg-white hover:text-black"
+          >
+            Solicitar auditoría
+          </a>
+        </header>
+
+        <div class="grid gap-12 pt-14 lg:grid-cols-[1.15fr_0.85fr] lg:items-end lg:pt-20">
+          <div>
+            <p class="text-sm uppercase tracking-[0.28em] text-[#f79a2d]">
+              Ciberseguridad para pymes en A Coruña
+            </p>
+            <h1 class="mt-6 max-w-5xl text-[3.25rem] leading-[0.92] font-semibold tracking-[-0.04em] text-white md:text-[5.75rem] xl:text-[7.25rem]">
+              Ciberseguridad
+              <br />
+              para pymes.
+              <br />
+              Auditorías con
+              <br />
+              enfoque real.
+            </h1>
+            <p class="mt-8 max-w-2xl text-lg leading-8 text-neutral-300 md:text-xl">
+              Ayudo a pequeñas empresas a entender dónde están expuestas, priorizar riesgos y mejorar
+              su seguridad con auditorías claras, técnicas y orientadas a negocio.
+            </p>
+          </div>
+
+          <aside class="grid gap-6 border-t border-white/10 pt-8 text-sm uppercase tracking-[0.18em] text-neutral-300 lg:border-t-0 lg:pt-0">
+            <div class="grid gap-2">
+              <p class="text-white">Servicios</p>
+              <p>Auditorías web</p>
+              <p>Seguridad operativa</p>
+              <p>Planes de mejora</p>
+            </div>
+            <div class="grid gap-2">
+              <p class="text-white">Enfoque</p>
+              <p>Claro</p>
+              <p>Cercano</p>
+              <p>Accionable</p>
+            </div>
+            <div class="grid gap-2">
+              <p class="text-white">Base</p>
+              <p>A Coruña / Galicia</p>
+            </div>
+          </aside>
+        </div>
+
+        <div class="mt-14 flex flex-col gap-4 border-t border-white/10 pt-8 sm:flex-row">
+          <a
+            href="/contacto"
+            class="inline-flex items-center justify-center rounded-full bg-[#f5f1e8] px-7 py-4 text-sm font-semibold uppercase tracking-[0.18em] text-black transition hover:bg-white"
+          >
+            Solicitar una auditoría
+          </a>
+          <a
+            href="#portfolio"
+            class="inline-flex items-center justify-center rounded-full border border-white/15 px-7 py-4 text-sm font-semibold uppercase tracking-[0.18em] text-white transition hover:bg-white/10"
+          >
+            Ver portfolio
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="border-b border-white/10 bg-[#0d0d0d]">
+      <div class="mx-auto grid max-w-7xl gap-8 px-6 py-6 text-xs uppercase tracking-[0.28em] text-neutral-500 md:grid-cols-3 md:px-10">
+        <p>Auditorías técnicas</p>
+        <p>Enfoque para negocio</p>
+        <p>Contacto directo y local</p>
+      </div>
+    </section>
+
+    <section id="servicios" class="mx-auto max-w-7xl px-6 py-24 md:px-10">
+      <div class="grid gap-12 lg:grid-cols-[0.9fr_1.1fr]">
+        <div>
+          <p class="text-sm uppercase tracking-[0.28em] text-[#f79a2d]">Servicios</p>
+          <h2 class="mt-4 text-4xl font-semibold tracking-[-0.04em] text-white md:text-6xl">
+            Una oferta corta.
+            <br />
+            Mucho más fácil
+            <br />
+            de vender.
+          </h2>
+        </div>
+
+        <div class="space-y-6">
+          {services.map((service) => (
+            <article class="grid gap-5 border-t border-white/10 py-6 md:grid-cols-[90px_1fr]">
+              <p class="text-sm uppercase tracking-[0.24em] text-neutral-500">{service.number}</p>
+              <div>
+                <div class="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
+                  <h3 class="text-2xl font-semibold text-white md:text-3xl">{service.title}</h3>
+                  <span class="inline-flex w-fit rounded-full border border-white/10 px-3 py-1 text-xs uppercase tracking-[0.2em] text-neutral-300">
+                    {service.tag}
+                  </span>
+                </div>
+                <p class="mt-3 max-w-2xl leading-8 text-neutral-300">{service.description}</p>
+                <ul class="mt-5 grid gap-3 text-sm leading-7 text-neutral-400">
+                  {service.items.map((item) => (
+                    <li class="border-l border-white/10 pl-4">{item}</li>
+                  ))}
+                </ul>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section id="portfolio" class="border-y border-white/10 bg-[#111111]">
+      <div class="mx-auto max-w-7xl px-6 py-24 md:px-10">
+        <div class="flex flex-col gap-8 border-b border-white/10 pb-10 lg:flex-row lg:items-end lg:justify-between">
+          <div>
+            <p class="text-sm uppercase tracking-[0.28em] text-[#f79a2d]">Portfolio</p>
+            <h2 class="mt-4 text-4xl font-semibold tracking-[-0.04em] text-white md:text-6xl">
+              Credibilidad técnica.
+              <br />
+              Trabajo real.
+            </h2>
+          </div>
+          <p class="max-w-2xl text-lg leading-8 text-neutral-300">
+            Investigación, formación especializada y enfoque técnico orientado a negocio para aportar
+            contexto, credibilidad y una forma de trabajo clara.
+          </p>
+        </div>
+
+        <div class="mt-10 grid gap-6 lg:grid-cols-3">
+          {projects.map((project) => (
+            <article class="flex min-h-[22rem] flex-col justify-between rounded-[2rem] border border-white/10 bg-[linear-gradient(180deg,_rgba(255,255,255,0.06),_rgba(255,255,255,0.02))] p-8 transition hover:-translate-y-1 hover:border-white/20">
+              <div>
+                <p class="text-xs uppercase tracking-[0.24em] text-neutral-500">{project.scope}</p>
+                <h3 class="mt-5 text-3xl font-semibold tracking-[-0.03em] text-white">
+                  {project.name}
+                </h3>
+              </div>
+              <div class="mt-8">
+                <p class="leading-8 text-neutral-300">{project.summary}</p>
+                <a
+                  href={project.href}
+                  target={project.href.startsWith('http') ? '_blank' : undefined}
+                  rel={project.href.startsWith('http') ? 'noreferrer' : undefined}
+                  class="mt-6 inline-flex items-center text-sm font-semibold uppercase tracking-[0.18em] text-[#f5f1e8] transition hover:text-[#f79a2d]"
+                >
+                  {project.cta}
+                </a>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="mx-auto max-w-7xl px-6 py-24 md:px-10">
+      <div class="grid gap-12 lg:grid-cols-[0.85fr_1.15fr]">
+        <div>
+          <p class="text-sm uppercase tracking-[0.28em] text-[#f79a2d]">Proceso</p>
+          <h2 class="mt-4 text-4xl font-semibold tracking-[-0.04em] text-white md:text-6xl">
+            Claro de principio
+            <br />
+            a fin.
+          </h2>
+        </div>
+
+        <ol class="border-t border-white/10">
+          {process.map((step, index) => (
+            <li class="grid gap-4 border-b border-white/10 py-5 md:grid-cols-[70px_1fr]">
+              <span class="text-sm uppercase tracking-[0.24em] text-neutral-500">
+                0{index + 1}
+              </span>
+              <p class="text-xl leading-8 text-neutral-200">{step}</p>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </section>
+
+    <section id="contacto" class="border-t border-white/10 bg-[#f5f1e8] text-black">
+      <div class="mx-auto max-w-7xl px-6 py-24 md:px-10">
+        <div class="grid gap-10 lg:grid-cols-[1fr_auto] lg:items-end">
+          <div>
+            <p class="text-sm uppercase tracking-[0.28em] text-neutral-600">Contacto</p>
+            <h2 class="mt-4 max-w-4xl text-4xl font-semibold tracking-[-0.04em] md:text-6xl">
+              Cuéntame qué necesitas y lo revisamos.
+            </h2>
+            <p class="mt-6 max-w-2xl text-lg leading-8 text-neutral-700">
+              Si quieres más información sobre una auditoría o encaja con lo que buscas, escríbeme y
+              te responderé con el siguiente paso más adecuado.
+            </p>
+          </div>
+
+          <div class="flex flex-col gap-4 sm:flex-row">
+            <a
+              href="/contacto"
+              class="inline-flex items-center justify-center rounded-full bg-black px-8 py-4 text-sm font-semibold uppercase tracking-[0.18em] text-white transition hover:bg-neutral-800"
+            >
+              Escríbeme por correo
+            </a>
+            <a
+              href="#top"
+              class="inline-flex items-center justify-center rounded-full border border-black/15 px-8 py-4 text-sm font-semibold uppercase tracking-[0.18em] text-black transition hover:bg-black/5"
+            >
+              Volver arriba
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+</Layout>
