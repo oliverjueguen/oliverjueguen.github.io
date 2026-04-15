@@ -255,7 +255,6 @@ const cooldownSeconds = 120;
         return;
       }
 
-      localStorage.setItem(storageKey, String(now));
       button.setAttribute('disabled', 'disabled');
       button.classList.add('cursor-not-allowed', 'opacity-60');
       statusMessage.classList.add('hidden');
@@ -271,9 +270,15 @@ const cooldownSeconds = 120;
           const data = await response.json().catch(() => ({}));
 
           if (!response.ok || !data.success) {
-            throw new Error(data.error || 'No se pudo enviar el formulario.');
+            if (response.status === 429) {
+              localStorage.setItem(storageKey, String(now));
+              renderCooldown();
+            }
+
+            throw new Error(data.error || 'No se pudo enviar el mensaje. Inténtalo de nuevo más tarde.');
           }
 
+          localStorage.setItem(storageKey, String(now));
           window.location.href = '/contacto?enviado=1';
         })
         .catch((error) => {

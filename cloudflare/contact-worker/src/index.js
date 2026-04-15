@@ -78,10 +78,12 @@ export default {
       );
     }
 
+    let rateLimitKey = null;
+    let cooldownSeconds = Number(env.COOLDOWN_SECONDS || '120');
+
     if (env.CONTACT_RATE_LIMIT) {
-      const cooldownSeconds = Number(env.COOLDOWN_SECONDS || '120');
       const clientIp = getClientIp(request);
-      const rateLimitKey = `contact:${clientIp}`;
+      rateLimitKey = `contact:${clientIp}`;
       const previous = await env.CONTACT_RATE_LIMIT.get(rateLimitKey);
 
       if (previous) {
@@ -93,10 +95,6 @@ export default {
           origin,
         );
       }
-
-      await env.CONTACT_RATE_LIMIT.put(rateLimitKey, '1', {
-        expirationTtl: cooldownSeconds,
-      });
     }
 
     const upstream = new FormData();
@@ -135,12 +133,21 @@ export default {
         json(
           {
             success: false,
-            error: upstreamBody.message || 'No se pudo enviar el mensaje.',
+            error:
+              upstreamBody.message ||
+              upstreamBody.error ||
+              'No se pudo enviar el mensaje.',
           },
           { status: 502 },
         ),
         origin,
       );
+    }
+
+    if (env.CONTACT_RATE_LIMIT && rateLimitKey) {
+      await env.CONTACT_RATE_LIMIT.put(rateLimitKey, '1', {
+        expirationTtl: cooldownSeconds,
+      });
     }
 
     return withCors(json({ success: true }), origin);
