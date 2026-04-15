@@ -38,8 +38,7 @@ const cooldownSeconds = 120;
               Solicita tu auditoría.
             </h1>
             <p class="mt-8 max-w-xl text-lg leading-8 text-neutral-300">
-              Cuéntame tu caso, el tipo de empresa y qué te preocupa. Te responderé por correo con el
-              siguiente paso más adecuado.
+              Explícame tu caso y te contactaré para ver cómo puedo ayudarte.
             </p>
           </div>
 
@@ -110,6 +109,31 @@ const cooldownSeconds = 120;
                   />
                 </div>
               </div>
+
+              <fieldset class="grid gap-3">
+                <legend class="text-sm font-medium text-neutral-200">Vía preferida de contacto</legend>
+                <div class="flex flex-col gap-3 sm:flex-row">
+                  <label class="flex items-center gap-3 rounded-2xl border border-white/10 bg-black/30 px-4 py-4 text-white transition hover:border-[#f79a2d]">
+                    <input
+                      type="radio"
+                      name="via_preferida"
+                      value="Correo electrónico"
+                      checked
+                      class="h-4 w-4 accent-[#f79a2d]"
+                    />
+                    <span>Correo electrónico</span>
+                  </label>
+                  <label class="flex items-center gap-3 rounded-2xl border border-white/10 bg-black/30 px-4 py-4 text-white transition hover:border-[#f79a2d]">
+                    <input
+                      type="radio"
+                      name="via_preferida"
+                      value="Llamada telefónica"
+                      class="h-4 w-4 accent-[#f79a2d]"
+                    />
+                    <span>Llamada telefónica</span>
+                  </label>
+                </div>
+              </fieldset>
 
               <div class="grid gap-2">
                 <label for="servicio" class="text-sm font-medium text-neutral-200">Servicio</label>
