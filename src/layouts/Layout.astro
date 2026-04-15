@@ -6,18 +6,15 @@ interface Props {
   description?: string;
 }
 
-const contactApiUrl =
-  import.meta.env.PUBLIC_CONTACT_API_URL || 'https://contact-api.oliverjueguen.workers.dev';
-const contactApiOrigin = new URL(contactApiUrl).origin;
 const csp = [
   "default-src 'self'",
   "script-src 'self' 'unsafe-inline'",
   "style-src 'self' 'unsafe-inline'",
   "img-src 'self' data: https:",
   "font-src 'self' data:",
-  `connect-src 'self' ${contactApiOrigin}`,
+  "connect-src 'self'",
   "base-uri 'self'",
-  "form-action 'self'",
+  "form-action 'self' https://api.web3forms.com",
 ].join('; ');
 
 const {

@@ -1,8 +1,8 @@
 ---
 import Layout from '../layouts/Layout.astro';
 
-const contactApiUrl =
-  import.meta.env.PUBLIC_CONTACT_API_URL || 'https://contact-api.oliverjueguen.workers.dev';
+const formAction = 'https://api.web3forms.com/submit';
+const accessKey = '8a7cc2f3-8d78-4760-81a5-a4fe9c6e6772';
 const enviado = Astro.url.searchParams.get('enviado') === '1';
 const cooldownSeconds = 120;
 ---
@@ -49,20 +49,20 @@ const cooldownSeconds = 120;
               </div>
             )}
             <div
-              id="contact-status-message"
-              class="mb-6 hidden rounded-2xl border px-4 py-4 text-sm leading-7"
-            ></div>
-            <div
               id="contact-cooldown-message"
               class="mb-6 hidden rounded-2xl border border-amber-400/30 bg-amber-400/10 px-4 py-4 text-sm leading-7 text-amber-100"
             ></div>
             <form
+              action={formAction}
               method="POST"
               class="grid gap-5"
               data-contact-form
               data-cooldown={cooldownSeconds}
-              data-api-url={contactApiUrl}
             >
+              <input type="hidden" name="access_key" value={accessKey} />
+              <input type="hidden" name="subject" value="Nuevo contacto desde oliverjueguen.net" />
+              <input type="hidden" name="from_name" value="oliverjueguen.net" />
+              <input type="hidden" name="redirect" value="https://oliverjueguen.net/contacto?enviado=1" />
               <input
                 type="checkbox"
                 name="botcheck"
@@ -200,23 +200,10 @@ const cooldownSeconds = 120;
   const form = document.querySelector('[data-contact-form]');
   const button = document.querySelector('[data-submit-button]');
   const message = document.getElementById('contact-cooldown-message');
-  const statusMessage = document.getElementById('contact-status-message');
 
-  if (form && button && message && statusMessage) {
+  if (form && button && message) {
     const storageKey = 'contact-form-last-submit';
     const cooldownSeconds = Number(form.getAttribute('data-cooldown') || '120');
-    const apiUrl = form.getAttribute('data-api-url');
-
-    const showStatus = (text, type) => {
-      const styles = {
-        success: 'border-emerald-400/30 bg-emerald-400/10 text-emerald-100',
-        error: 'border-red-400/30 bg-red-400/10 text-red-100',
-      };
-
-      statusMessage.textContent = text;
-      statusMessage.className = `mb-6 rounded-2xl border px-4 py-4 text-sm leading-7 ${styles[type]}`;
-      statusMessage.classList.remove('hidden');
-    };
 
     const renderCooldown = () => {
       const lastSubmit = Number(localStorage.getItem(storageKey) || '0');
@@ -240,54 +227,18 @@ const cooldownSeconds = 120;
     window.setInterval(renderCooldown, 1000);
 
     form.addEventListener('submit', (event) => {
-      event.preventDefault();
-
       const lastSubmit = Number(localStorage.getItem(storageKey) || '0');
       const now = Math.floor(Date.now() / 1000);
 
       if (lastSubmit + cooldownSeconds > now) {
+        event.preventDefault();
         renderCooldown();
         return;
       }
 
-      if (!apiUrl) {
-        showStatus('Falta configurar el endpoint del formulario.', 'error');
-        return;
-      }
-
+      localStorage.setItem(storageKey, String(now));
       button.setAttribute('disabled', 'disabled');
       button.classList.add('cursor-not-allowed', 'opacity-60');
-      statusMessage.classList.add('hidden');
-
-      fetch(apiUrl, {
-        method: 'POST',
-        body: new FormData(form),
-        headers: {
-          Accept: 'application/json',
-        },
-      })
-        .then(async (response) => {
-          const data = await response.json().catch(() => ({}));
-
-          if (!response.ok || !data.success) {
-            if (response.status === 429) {
-              localStorage.setItem(storageKey, String(now));
-              renderCooldown();
-            }
-
-            throw new Error(data.error || 'No se pudo enviar el mensaje. Inténtalo de nuevo más tarde.');
-          }
-
-          localStorage.setItem(storageKey, String(now));
-          window.location.href = '/contacto?enviado=1';
-        })
-        .catch((error) => {
-          localStorage.removeItem(storageKey);
-          button.removeAttribute('disabled');
-          button.classList.remove('cursor-not-allowed', 'opacity-60');
-          renderCooldown();
-          showStatus(error.message || 'No se pudo enviar el formulario.', 'error');
-        });
     });
   }
 </script>
